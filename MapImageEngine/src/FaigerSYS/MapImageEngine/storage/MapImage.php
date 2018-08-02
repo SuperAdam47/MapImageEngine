@@ -4,7 +4,7 @@ namespace FaigerSYS\MapImageEngine\storage;
 use pocketmine\utils\BinaryStream;
 use pocketmine\utils\UUID;
 
-use pocketmine\network\mcpe\protocol\BatchPacket;
+use pocketmine\network\mcpe\PacketStream;
 
 class MapImage {
 	
@@ -169,10 +169,10 @@ class MapImage {
 	 * @return BatchPacket
 	 */
 	public function generateBatchedMapImagesPacket(int $compression_level = 6) {
-		$pk = new BatchPacket();
+		$pk = new PacketStream();
 		$pk->setCompressionLevel($compression_level);
 		foreach ($this->chunks as $chunk) {
-			$pk->addPacket($chunk->generateMapImagePacket());
+			$pk->putPacket($chunk->generateMapImagePacket());
 		}
 		return $pk;
 	}
@@ -185,10 +185,10 @@ class MapImage {
 	 * @return BatchPacket
 	 */
 	public function generateBatchedCustomMapImagesPacket(int $compression_level = 6) {
-		$pk = new BatchPacket();
+		$pk = new PacketStream();
 		$pk->setCompressionLevel($compression_level);
 		foreach ($this->chunks as $chunk) {
-			$pk->addPacket($chunk->generateCustomMapImagePacket());
+			$pk->putPacket($chunk->generateCustomMapImagePacket());
 		}
 		return $pk;
 	}

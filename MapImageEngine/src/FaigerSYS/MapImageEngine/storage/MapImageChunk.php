@@ -10,7 +10,7 @@ use FaigerSYS\MapImageEngine\MapImageEngine;
 
 use pocketmine\utils\Color;
 
-use pocketmine\network\mcpe\protocol\BatchPacket;
+use pocketmine\network\mcpe\PacketStream;
 use pocketmine\network\mcpe\protocol\ClientboundMapItemDataPacket;
 use FaigerSYS\MapImageEngine\packet\CustomClientboundMapItemDataPacket;
 

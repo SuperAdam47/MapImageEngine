@@ -8,9 +8,12 @@ use pocketmine\utils\TextFormat as CLR;
 use pocketmine\item\Item;
 use pocketmine\item\ItemFactory;
 use FaigerSYS\MapImageEngine\item\FilledMap;
-
+use pocketmine\network\mcpe\protocol\DataPacket;
+use pocketmine\network\mcpe\PacketStream;
 use pocketmine\tile\ItemFrame;
-
+use pocketmine\Player;
+use pocketmine\network\mcpe\protocol\MovePlayerPacket;
+use pocketmine\Server;
 use pocketmine\event\Listener;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\event\level\ChunkLoadEvent;
@@ -33,7 +36,7 @@ class MapImageEngine extends PluginBase implements Listener {
 	
 	/** @var MapImageEngine */
 	private static $instance;
-	
+	public $mapId;
 	/** @var ImageStorage */
 	private $storage;
 	

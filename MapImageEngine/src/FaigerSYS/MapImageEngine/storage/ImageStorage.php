@@ -3,7 +3,7 @@ namespace FaigerSYS\MapImageEngine\storage;
 
 use pocketmine\Player;
 
-use pocketmine\network\mcpe\protocol\BatchPacket;
+use pocketmine\network\mcpe\PacketStream;
 
 use FaigerSYS\MapImageEngine\MapImageEngine;
 
@@ -117,28 +117,26 @@ class ImageStorage {
 			if ($chunk_x === null && $chunk_y === null) {
 				foreach ($image->getChunks() as $chunks) {
 					foreach ($chunks as $chunk) {
-						$pk = new BatchPacket();
-						$pk->setCompressionLevel(7);
+						$pk = new PacketStream();
 						if (MapImageEngine::isCustomPacketSupported()) {
-							$pk->addPacket($chunk->generateCustomMapImagePacket());
+							$pk->putPacket($chunk->generateCustomMapImagePacket());
 						} else {
-							$pk->addPacket($chunk->generateMapImagePacket());
+							$pk->putPacket($chunk->generateMapImagePacket());
 						}
-						$pk->encode();
+					
 						$this->packet_cache[$chunk->getMapId()] = $pk;
 					}
 				}
 			} else {
 				$chunk = $image->getChunk($chunk_x, $chunk_y);
 				if ($chunk !== null) {
-					$pk = new BatchPacket();
-					$pk->setCompressionLevel(7);
+					$pk = new PacketStream();
 					if (MapImageEngine::isCustomPacketSupported()) {
-						$pk->addPacket($chunk->generateCustomMapImagePacket());
+						$pk->putPacket($chunk->generateCustomMapImagePacket());
 					} else {
-						$pk->addPacket($chunk->generateMapImagePacket());
+						$pk->putPacket($chunk->generateMapImagePacket());
 					}
-					$pk->encode();
+				
 					$this->packet_cache[$chunk->getMapId()] = $pk;
 				}
 			}

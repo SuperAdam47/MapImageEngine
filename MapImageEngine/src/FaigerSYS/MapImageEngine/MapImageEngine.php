@@ -181,11 +181,8 @@ class MapImageEngine extends PluginBase implements Listener {
 	 * @ignoreCancelled true
 	 */
 	public function onRequest(DataPacketReceiveEvent $e) {
-		if ($e->getPacket() instanceof MapInfoRequestPacket) {
-			$pk = $this->getImageStorage()->getCachedPacket($e->getPacket()->mapId);
-			if ($pk !== null) {
-				$e->getPlayer()->dataPacket($pk);
-			}
+		if ($e->getPacket() instanceof MapInfoRequestPacket) { 
+			$this->getImageStorage()->getCachedPacket($e->getPacket()->mapId, $e->getPlayer()); 
 			$e->setCancelled(true);
 		}
 	}
